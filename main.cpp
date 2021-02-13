@@ -3,14 +3,15 @@
 #include <QImage>
 #include <fstream>
 #include <iostream>
+#include "image/Image.h"
 
 using namespace std;
 
 int main() {
-    ifstream o("test.txt");
-    string s;
-    o >> s;
-    cout << s;
-    qDebug() << QT_VERSION_STR;
+
+    Image image("resources/cat.jpg");
+    for (int i = 0; i < image.getWidth(); ++i) {
+        cout << image(i, 0) * 1 << " ";
+    }
     return 1;
 }

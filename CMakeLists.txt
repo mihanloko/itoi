@@ -5,6 +5,6 @@ find_package(Qt5Widgets REQUIRED)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(itoi main.cpp)
+add_executable(itoi main.cpp image/Image.cpp image/Image.h image/DoubleImage.cpp image/DoubleImage.h)
 
 target_link_libraries(itoi Qt5::Widgets)
