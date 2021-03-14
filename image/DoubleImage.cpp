@@ -9,10 +9,11 @@ DoubleImage::DoubleImage() {
 }
 
 DoubleImage::DoubleImage(const QString& name) {
+    this->name = name;
     QImage image(name);
     height = image.height();
     width = image.width();
-    data = std::make_unique<double[]>(width * height);
+    data = vector<double>(width * height);
     for (int x = 0; x < width; x++) {
         for (int y = 0; y < height; y++) {
             (*this)(x, y) = (0.229 * image.pixelColor(x, y).red() + 0.587 * image.pixelColor(x, y).green() + 0.114 * image.pixelColor(x, y).blue()) / 255.;
@@ -31,14 +32,19 @@ int DoubleImage::getWidth() const {
 }
 
 double &DoubleImage::operator()(int x, int y) {
-    return data.get()[x + y * width];
+    return data[x + y * width];
 }
 
 DoubleImage::DoubleImage(const Image &image) {
+    this->name = image.getName();
     width = image.getWidth();
     height = image.getHeight();
-    data = std::make_unique<double[]>(width * height);
+    data = vector<double>(width * height);
     for (int i = 0; i < width * height; i++) {
-        data.get()[i] = image.getData()[i] / 255.;
+        data[i] = (image.getData()[i] - 0) * (1.0 - 0) / (255 - 0) + 0;
     }
+}
+
+const QString &DoubleImage::getName() const {
+    return name;
 }

@@ -14,7 +14,8 @@ using namespace std;
 class Image {
 private:
     int width, height;
-    unique_ptr<unsigned char[]> data;
+    vector<unsigned char > data;
+    QString name;
 
 public:
     Image();
@@ -27,7 +28,9 @@ public:
 
     unsigned char &operator()(int x, int y);
 
-    const unique_ptr<unsigned char[]> &getData() const;
+    const vector<unsigned char> &getData() const;
+
+    const QString &getName() const;
 
 };
 

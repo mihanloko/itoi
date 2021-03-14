@@ -14,7 +14,8 @@ using namespace std;
 class DoubleImage {
 private:
     int width, height;
-    unique_ptr<double[]> data;
+    vector<double> data;
+    QString name;
 
 public:
     DoubleImage();
@@ -28,6 +29,8 @@ public:
     int getWidth() const;
 
     double &operator()(int x, int y);
+
+    const QString &getName() const;
 };
 
 

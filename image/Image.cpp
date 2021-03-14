@@ -9,10 +9,11 @@ Image::Image() {
 }
 
 Image::Image(const QString& name) {
+    this->name = name;
     QImage image(name);
     height = image.height();
     width = image.width();
-    data = std::make_unique<unsigned char[]>(width * height);
+    data = vector<unsigned char>(width * height);
     for (int x = 0; x < width; x++) {
         for (int y = 0; y < height; y++) {
             (*this)(x, y) = (0.229 * image.pixelColor(x, y).red() + 0.587 * image.pixelColor(x, y).green() + 0.114 * image.pixelColor(x, y).blue());
@@ -31,9 +32,13 @@ int Image::getWidth() const {
 }
 
 unsigned char &Image::operator()(int x, int y) {
-    return data.get()[x + y * width];
+    return data[x + y * width];
 }
 
-const unique_ptr<unsigned char[]> &Image::getData() const {
+const vector<unsigned char> &Image::getData() const {
     return data;
+}
+
+const QString &Image::getName() const {
+    return name;
 }
