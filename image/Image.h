@@ -32,6 +32,10 @@ public:
 
     const QString &getName() const;
 
+    static Image fromDouble(vector<double> data, int width, int height);
+
+    void saveToFile(const QString& fileName);
+
 };
 
 

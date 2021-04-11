@@ -42,3 +42,19 @@ const vector<unsigned char> &Image::getData() const {
 const QString &Image::getName() const {
     return name;
 }
+
+Image Image::fromDouble(vector<double> data, int width, int height) {
+    Image image;
+    image.width = width;
+    image.height = height;
+    image.data = vector<unsigned char>(width * height);
+    for (int i = 0; i < width * height; i++) {
+        image.data[i] = (unsigned char)data[i];
+    }
+    return image;
+}
+
+void Image::saveToFile(const QString &fileName) {
+    QImage qImage{&data[0], width, height, QImage::Format_Grayscale8};
+    qImage.save("resources/out/" + fileName);
+}

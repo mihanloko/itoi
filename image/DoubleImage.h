@@ -24,6 +24,10 @@ public:
 
     DoubleImage(const Image& image);
 
+    DoubleImage normalize(float diff = 1.0);
+
+    DoubleImage(const vector<double>& data, int height, int width);
+
     int getHeight() const;
 
     int getWidth() const;
@@ -31,6 +35,12 @@ public:
     double &operator()(int x, int y);
 
     const QString &getName() const;
+
+    DoubleImage(int width, int height);
+
+    long size();
+
+    vector<double>& getData();
 };
 
 

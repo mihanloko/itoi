@@ -1,17 +1,7 @@
-#include <QApplication>
-#include <QDebug>
-#include <QImage>
-#include <fstream>
-#include <iostream>
-#include "image/Image.h"
-
-using namespace std;
+#include "labs/lab1.h"
 
 int main() {
 
-    Image image("resources/cat.jpg");
-    for (int i = 0; i < image.getWidth(); ++i) {
-        cout << image(i, 0) * 1 << " ";
-    }
+    lab1::run();
     return 1;
 }

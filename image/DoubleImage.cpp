@@ -19,8 +19,6 @@ DoubleImage::DoubleImage(const QString& name) {
             (*this)(x, y) = (0.229 * image.pixelColor(x, y).red() + 0.587 * image.pixelColor(x, y).green() + 0.114 * image.pixelColor(x, y).blue()) / 255.;
         }
     }
-//    image.pixelColor(0, 0).gre;
-
 }
 
 int DoubleImage::getHeight() const {
@@ -40,11 +38,57 @@ DoubleImage::DoubleImage(const Image &image) {
     width = image.getWidth();
     height = image.getHeight();
     data = vector<double>(width * height);
+    auto oldData = image.getData();
+    int min = oldData[0];
+    int max = oldData[0];
+    for (int i = 1; i < data.size(); i++) {
+        if (min > data[i]) min = oldData[i];
+        if (max < data[i]) max = oldData[i];
+    }
     for (int i = 0; i < width * height; i++) {
-        data[i] = (image.getData()[i] - 0) * (1.0 - 0) / (255 - 0) + 0;
+        data[i] = (image.getData()[i] - min) * (1.0 - 0) / (max - min) + 0;
     }
 }
 
 const QString &DoubleImage::getName() const {
     return name;
 }
+
+DoubleImage::DoubleImage(const vector<double> &data, int height, int width) {
+    this->width = width;
+    this->height = height;
+    this->data = vector<double>(data.size());
+    for (int i = 0; i < data.size(); i++)
+        this->data[i] = data[i];
+}
+
+DoubleImage::DoubleImage(int width, int height) {
+    this->width = width;
+    this->height = height;
+    this->data = vector<double>(width * height, 0);
+}
+
+DoubleImage DoubleImage::normalize(float diff) {
+    double max = data[0];
+    double min = data[0];
+    long size = width * height;
+    for (int i = 0; i < size; i++) {
+        if (data[i] < min) min = data[i];
+        if (data[i] > max) max = data[i];
+    }
+    // normalizing
+    auto res = vector<double>(size);
+    for (int i = 0; i < size; i++) {
+        res[i] = (data[i] - min) * (diff / (max - min));
+    }
+    return DoubleImage(res, height, width);
+}
+
+long DoubleImage::size() {
+    return data.size();
+}
+
+vector<double> &DoubleImage::getData() {
+    return data;
+}
+
