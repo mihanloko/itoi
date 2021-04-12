@@ -23,11 +23,11 @@ public:
     static DoubleImage applyConvolution(DoubleImage &image, DoubleImage &kernel,
                                         BorderEffectAction &borderPolicy = (BorderEffectAction &) DEFAULT_ACTION);
 
-    static DoubleImage derivX(DoubleImage &image,
-                              BorderEffectAction &borderPolicy = (BorderEffectAction &) DEFAULT_ACTION);
+    static DoubleImage derivativeX(DoubleImage &image,
+                                   BorderEffectAction &borderPolicy = (BorderEffectAction &) DEFAULT_ACTION);
 
-    static DoubleImage derivY(DoubleImage &image,
-                              BorderEffectAction &borderPolicy = (BorderEffectAction &) DEFAULT_ACTION);
+    static DoubleImage derivativeY(DoubleImage &image,
+                                   BorderEffectAction &borderPolicy = (BorderEffectAction &) DEFAULT_ACTION);
 
 
     static DoubleImage applyGauss(DoubleImage &image, double sigma,

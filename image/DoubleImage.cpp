@@ -10,7 +10,7 @@ DoubleImage::DoubleImage() {
 
 DoubleImage::DoubleImage(const QString& name) {
     this->name = name;
-    QImage image(name);
+    QImage image("resources/in/" + name);
     height = image.height();
     width = image.width();
     data = vector<double>(width * height);

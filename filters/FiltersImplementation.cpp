@@ -65,12 +65,12 @@ void FiltersImplementation::print(ostream &out, DoubleImage &matrix) {
     out.flush();
 }
 
-DoubleImage FiltersImplementation::derivX(DoubleImage &image, BorderEffectAction &borderPolicy) {
+DoubleImage FiltersImplementation::derivativeX(DoubleImage &image, BorderEffectAction &borderPolicy) {
     auto kernel = KernelFactory::GetSobelX();
     return applyConvolution(image, kernel, borderPolicy);
 }
 
-DoubleImage FiltersImplementation::derivY(DoubleImage &image, BorderEffectAction &borderPolicy) {
+DoubleImage FiltersImplementation::derivativeY(DoubleImage &image, BorderEffectAction &borderPolicy) {
     auto kernel = KernelFactory::GetSobelY();
     return applyConvolution(image, kernel, borderPolicy);
 }

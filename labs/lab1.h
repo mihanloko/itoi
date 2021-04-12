@@ -12,6 +12,8 @@
 #include "../borders/CopyBorderEffect.h"
 #include "../borders/MirrorBorderEffect.h"
 #include "../borders/ZeroBorderEffect.h"
+#include "../filters/FiltersImplementation.h"
+#include "../filters/KernelFactory.h"
 
 using namespace std;
 
@@ -19,9 +21,9 @@ class lab1 {
 public:
     static void run();
 
-    static void testSobelOper(const QString &imageName, BorderEffectAction &borderPolicy);
+    static void sobelOperatorTest(const QString &imageName, BorderEffectAction &borderEffectAction);
 
-    static void testGauss(const QString &imageName, double sigma, BorderEffectAction &borderPolicy);
+    static void gaussTest(const QString &imageName, double sigma, BorderEffectAction &borderEffectAction);
 };
 
 
