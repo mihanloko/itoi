@@ -1,7 +1,7 @@
-#include "labs/lab1.h"
+#include "labs/lab2.h"
 
 int main() {
 
-    lab1::run();
+    lab2::run();
     return 1;
 }

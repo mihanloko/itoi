@@ -92,3 +92,12 @@ vector<double> &DoubleImage::getData() {
     return data;
 }
 
+DoubleImage::DoubleImage(const DoubleImage &image) {
+    width = image.getWidth();
+    height = image.getHeight();
+    data = vector<double>(width * height);
+    for (int i = 0; i < size(); i++) {
+        data[i] = image.data[i];
+    }
+}
+

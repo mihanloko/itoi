@@ -24,6 +24,8 @@ public:
 
     DoubleImage(const Image& image);
 
+    DoubleImage(const DoubleImage& image);
+
     DoubleImage normalize(float diff = 1.0);
 
     DoubleImage(const vector<double>& data, int height, int width);
