@@ -24,9 +24,9 @@ public:
 
     static void run();
 
-    void work();
+    void process();
 
-    void saveAsCompoundImage(const vector<Octave> &octaves);
+    void saveCompoundImage(const vector<Octave> &octaves);
 };
 
 

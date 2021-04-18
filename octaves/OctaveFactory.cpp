@@ -4,8 +4,8 @@
 #include "OctaveFactory.h"
 #include "../filters/FiltersImplementation.h"
 
-vector<struct Octave>OctaveFactory::generateOctaves(int octavesCount, int nLevels, double sigma0, const DoubleImage &inputImage,
-                                double sigmaA) {
+vector<struct Octave> OctaveFactory::generateOctaves(int octavesCount, int nLevels, double sigma0, const DoubleImage &inputImage,
+                               double sigmaA) {
     double k = pow(2.0, 1.0 / nLevels); // интервал между масштабами в октаве
     auto deltaSigma = calculateDeltaSigma(sigmaA, sigma0);
     auto newImage = DoubleImage(inputImage);
@@ -22,7 +22,7 @@ vector<struct Octave>OctaveFactory::generateOctaves(int octavesCount, int nLevel
 }
 
 Octave OctaveFactory::generateOneOctave(int nLevels, double sigma0, const DoubleImage &startImage, double k,
-                                  double globalSigma) {
+                                        double globalSigma) {
     auto result = Octave();
     auto startElement = OctaveElement(sigma0, globalSigma, startImage);
     result.addElement(startElement);
@@ -55,7 +55,6 @@ DoubleImage OctaveFactory::getHalfSizeImage(DoubleImage &image) {
         throw runtime_error("invalid");
     }
     return DoubleImage(res.normalize());
-//    return DoubleImage(pixels, image.getWidth() / 2, image.getHeight() / 2);;
 }
 
 
@@ -75,7 +74,7 @@ DoubleImage OctaveFactory::L(DoubleImage &inputImage, vector<Octave> pyramid, do
         octaveCount++;
     }
 
-    int transformationCoef =static_cast<int>(pow(2, octaveLevel));
+    int transformationCoef = static_cast<int>(pow(2, octaveLevel));
     auto output = DoubleImage(inputImage.getWidth(), inputImage.getHeight());
     for (int x = 0; x < inputImage.getWidth(); x++)
         for (int y = 0; y < inputImage.getHeight(); y++) {

@@ -6,17 +6,11 @@
 #include "../octaves/OctaveFactory.h"
 
 void lab2::run() {
-//        a
-    lab2(5, 2, 1, 0.5, 7.13, "butterfly", ".jpg").work();
-    lab2(3, 2, 1.5, 0.8, 4, "shrek", ".jpg").work();
-    lab2(3, 4, 0.7, 0.3, 3, "cat_dog", ".jpg").work();
-//        b
-    lab2(2, 4, 1, 0.5, 3, "butterfly1", ".jpg").work();
-    lab2(3, 3, 1, 0.5, 6, "butterfly2", ".jpg").work();
-    lab2(4, 2, 1, 0.5, 9, "butterfly3", ".jpg").work();
+    lab2(5, 3, 1, 0.5, 7.13, "cat", ".jpg").process();
+    lab2(4, 2, 1, 0.5, 9, "wall", ".jpg").process();
 }
 
-void lab2::work() {
+void lab2::process() {
     auto input = Image(imageName + ext);
     auto inputDouble = DoubleImage(input);
     auto octaves = OctaveFactory::generateOctaves(nOctaves, nLevels, sigma0, inputDouble, sigmaA);
@@ -28,26 +22,26 @@ void lab2::work() {
                       "_local_" + to_string(elements[j].getLocalSigma()) +
                       "_global_" + to_string( elements[j].getGlobalSigma()) +
                       ext.toStdString();
-            Image::fromDouble(elements[j].getImage().getData(),
+            Image::fromDouble(elements[j].getImage().normalize(255).getData(),
                               elements[j].getImage().getWidth(),
                               elements[j].getImage().getHeight()).saveToFile(QString::fromStdString(fileName));
         }
     }
     auto L = OctaveFactory::L(inputDouble, octaves, sigmaL);
-    Image::fromDouble(L.getData(), L.getWidth(), L.getHeight()).saveToFile(imageName +
-                                                                           "L_" +
+    Image::fromDouble(L.normalize(255).getData(), L.getWidth(), L.getHeight()).saveToFile(imageName +
+                                                                           "_L_" +
                                                                            QString::fromStdString(to_string(sigmaL)) +
                                                                            ext);
-    saveAsCompoundImage(octaves);
+    saveCompoundImage(octaves);
 }
 
-void lab2::saveAsCompoundImage(const vector<Octave> &octaves) {
+void lab2::saveCompoundImage(const vector<Octave> &octaves) {
     for (int i = 0; i < nLevels; i++) {
-        auto resultImage = Image::fromDouble(octaves[0].getElements()[i].getImage().getData(),
+        auto resultImage = Image::fromDouble(octaves[0].getElements()[i].getImage().normalize(255).getData(),
                                              octaves[0].getElements()[i].getImage().getWidth(),
                                              octaves[0].getElements()[i].getImage().getHeight());
         for (int j = 0; j < nOctaves; j++) {
-            auto curImage = Image::fromDouble(octaves[j].getElements()[i].getImage().getData(),
+            auto curImage = Image::fromDouble(octaves[j].getElements()[i].getImage().normalize(255).getData(),
                                               octaves[j].getElements()[i].getImage().getWidth(),
                                               octaves[j].getElements()[i].getImage().getHeight());
             for (int x = 0; x < curImage.getWidth(); x++)
