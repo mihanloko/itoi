@@ -19,8 +19,9 @@ vector<InterestingPoint> Moravec::makeMoravec(DoubleImage &image) {
     sort(filteredCandidates.begin(), filteredCandidates.end(), [](const InterestingPoint & a, const InterestingPoint & b) -> bool {
         return b.getProbability() > a.getProbability();
     });
-    int right = filteredCandidates.size() > MAX_SIZE ? MAX_SIZE : filteredCandidates.size();
-    return vector<InterestingPoint>(&filteredCandidates[0], &filteredCandidates[right]);
+//    int right = filteredCandidates.size() > MAX_SIZE ? MAX_SIZE : filteredCandidates.size();
+    return DataSaver::saveData(image, mins, filteredCandidates, "Moravec");
+//    return vector<InterestingPoint>(&filteredCandidates[0], &filteredCandidates[right]);
 }
 
 vector<vector<double>> Moravec::getMinimums(DoubleImage &image, BorderEffectAction &action) {
@@ -29,7 +30,7 @@ vector<vector<double>> Moravec::getMinimums(DoubleImage &image, BorderEffectActi
     auto mins = vector<vector<double>>(width, vector<double>(height));
     for (int i = 0; i < width; i++) {
         for (int j = 0; j < height; j++) {
-            double min = std::numeric_limits<double>::max();
+            double min = numeric_limits<double>::max();
             for (int k = 0; k < dx.size(); k++) {
                 double sum = 0;
                 for (int u = -WINDOW_RADIUS; u <= WINDOW_RADIUS; u++) {

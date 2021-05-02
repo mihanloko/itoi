@@ -29,3 +29,7 @@ void InterestingPoint::setProbability(double probability) {
 }
 
 InterestingPoint::InterestingPoint(int x, int y, double probability) : x(x), y(y), probability(probability) {}
+
+double InterestingPoint::distance(InterestingPoint &a, InterestingPoint &b) {
+    return sqrt((a.x - b.x)*(a.x - b.x) + (a.y - b.y)*(a.y - b.y));
+}

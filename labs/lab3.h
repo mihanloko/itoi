@@ -8,19 +8,11 @@
 
 #include <QString>
 #include "../image/Image.h"
+#include "../points/Harris.h"
+#include "../points/Moravec.h"
 
 class lab3 {
-private:
-    const QString &imageName, &extension;
-    int pointsCount = 100;
-    int windowSize = 4;
-    double harrisThresholdCoef = 0.2;
-    double moravecThresholdCoef = 0.2;
-    Image inputImage;
 public:
-    lab3(const QString &imageName, const QString &extension) : imageName(imageName), extension(extension) {
-        this->inputImage = Image(imageName + extension);
-    }
     static void run();
 };
 

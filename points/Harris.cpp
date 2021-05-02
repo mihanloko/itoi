@@ -3,6 +3,7 @@
 //
 
 #include "Harris.h"
+#include "DataSaver.h"
 
 vector<InterestingPoint> Harris::makeHarris(DoubleImage &image, BorderEffectAction &action) {
     int width = image.getWidth();
@@ -42,8 +43,9 @@ vector<InterestingPoint> Harris::makeHarris(DoubleImage &image, BorderEffectActi
     sort(filteredCandidates.begin(), filteredCandidates.end(), [](const InterestingPoint & a, const InterestingPoint & b) -> bool {
         return b.getProbability() > a.getProbability();
     });
-    int right = filteredCandidates.size() > MAX_SIZE ? MAX_SIZE : filteredCandidates.size();
-    return vector<InterestingPoint>(&filteredCandidates[0], &filteredCandidates[right]);
+//    int right = filteredCandidates.size() > MAX_SIZE ? MAX_SIZE : filteredCandidates.size();
+    return DataSaver::saveData(image, mins, filteredCandidates, "Harris");
+//    return vector<InterestingPoint>(&filteredCandidates[0], &filteredCandidates[right]);
 }
 
 vector<double> Harris::getEigenValues(vector<vector<double>> &matrix) {

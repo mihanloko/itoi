@@ -21,9 +21,30 @@ vector<InterestingPoint> DetectorUtil::getCandidates(vector<vector<double>> valu
                     ok = false;
             }
             if (ok) {
-                candidates.emplace_back( values[i][j], i, j);
+                candidates.emplace_back(i, j, values[i][j]);
             }
         }
     }
     return candidates;
+}
+
+vector<InterestingPoint> DetectorUtil::filter(vector<InterestingPoint> &points, int maxSize, int maxRadius) {
+    vector<InterestingPoint> result(points);
+    int r = 0;
+    while (result.size() > maxRadius && r < maxSize) {
+        for (int i = 0; i < result.size(); i++) {
+            for (int j = 0; j < result.size(); j++) {
+                double dist = InterestingPoint::distance(result[i], result[j]);
+                if (dist <= r) {
+                    if (result[i].getProbability() < result[j].getProbability()) {
+                        result.erase(result.begin() + i);
+                        i--;
+                        j = result.size();
+                    }
+                }
+            }
+        }
+        r++;
+    }
+    return result;
 }

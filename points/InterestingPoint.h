@@ -5,6 +5,7 @@
 #ifndef ITOI_INTERESTINGPOINT_H
 #define ITOI_INTERESTINGPOINT_H
 
+#include <cmath>
 
 class InterestingPoint {
 private:
@@ -24,6 +25,8 @@ public:
     double getProbability() const;
 
     void setProbability(double probability);
+
+    static double distance(InterestingPoint &a, InterestingPoint &b);
 };
 
 
