@@ -8,6 +8,9 @@ void lab3::run() {
     Moravec moravec;
     Harris harris;
 
+    DoubleImage lenna("768px-Lenna.png");
+    moravec.makeMoravec(lenna);
+    harris.makeHarris(lenna);
     DoubleImage cat("cat.jpg");
     DoubleImage wall("wall.jpg");
 

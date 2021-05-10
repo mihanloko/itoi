@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <map>
+#include <algorithm>
 #include "InterestingPoint.h"
 
 using namespace std;
