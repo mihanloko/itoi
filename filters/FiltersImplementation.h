@@ -11,6 +11,7 @@
 
 #include "../image/DoubleImage.h"
 #include "../borders/CopyBorderEffect.h"
+#include "KernelFactory.h"
 
 class FiltersImplementation {
 public:
@@ -38,6 +39,8 @@ public:
 
     static DoubleImage applyGaussSeparable(DoubleImage &image, double sigma,
                                            BorderEffectAction &policy = (BorderEffectAction &) DEFAULT_ACTION, bool normalize = false);
+
+    static double getSeparableValue(pair<DoubleImage, DoubleImage> &pair, int x, int y);
 };
 
 

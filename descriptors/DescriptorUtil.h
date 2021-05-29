@@ -6,10 +6,12 @@
 #define ITOI_DESCRIPTORUTIL_H
 
 
+#include <QPainter>
 #include <cmath>
 #include "../filters/FiltersImplementation.h"
 #include "../image/DoubleImage.h"
 #include "MatchData.h"
+#include "../points/DataSaver.h"
 
 class DescriptorUtil {
 public:
@@ -22,6 +24,12 @@ public:
     static int getMinIndex(vector<double> distances, int excludeIndex);
 
     static QImage markMatching(DoubleImage &a, DoubleImage &b, MatchData& data);
+
+    static DoubleImage getGradient(DoubleImage &first, DoubleImage &second, double (*counterFunc)(double, double));
+
+    static DoubleImage getGradient(DoubleImage &first, DoubleImage &second);
+
+    static DoubleImage getGradientAngle(DoubleImage &first, DoubleImage &second);
 };
 
 

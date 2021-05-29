@@ -1,9 +1,9 @@
 //
-// Created by mikhail on 18.05.2021.
+// Created by mikhail on 132.05.2021.
 //
 
 #include "lab4.h"
-#include "../descriptors/PatchProcessor.h"
+#include "../descriptors/HistogramCreator.h"
 
 void lab4::run() {
     DoubleImage cat("cat.jpg");
@@ -13,18 +13,18 @@ void lab4::run() {
     DoubleImage Lenna("Lenna.png");
     DoubleImage Lenna_moved("Lenna_moved.png");
 
-    processPair(cat, cat, 4, 4, "cat_cat.png");
-    processPair(cat, cat_contrast, 4, 6, "cat_cat_contrast.png");
-    processPair(cat, cat_moved, 6, 4, "cat_cat_moved.png");
-    processPair(cat, cat_contrast_moved, 6, 6, "cat_cat_contrast_moved.png");
-
-    processPair(Lenna, Lenna_moved, 4, 4, "Lenna_Lenna_moved.png");
-    processPair(Lenna, Lenna, 4, 4, "Lenna_Lenna.png");
+    processPair(cat, cat, 8, 4, "cat_cat.png", 8, 32);
+    processPair(cat, cat_contrast, 8, 4, "cat_cat_contrast.png", 8, 32);
+    processPair(cat, cat_moved, 8, 4, "cat_cat_moved.png", 8, 32);
+    processPair(cat, cat_contrast_moved, 8, 4, "cat_cat_contrast_moved.png", 8, 32);
+    processPair(Lenna, Lenna_moved, 8, 4, "Lenna_Lenna_moved.png", 8, 32);
+    processPair(Lenna, Lenna, 8, 4, "Lenna_Lenna.png", 8, 32);
 
 }
 
-void lab4::processPair(DoubleImage &a, DoubleImage& b, int gridHalfSize, int cellHalfSize, QString name) {
-    auto matching = PatchProcessor::create(a, b, gridHalfSize, cellHalfSize);
+void lab4::processPair(DoubleImage &a, DoubleImage& b, int gridHalfSize, int cellHalfSize, QString name, int basketSize,
+                       int pointsCount) {
+    auto matching = HistogramCreator::create(a, b, gridHalfSize, cellHalfSize, basketSize, pointsCount);
     auto resultImage = DescriptorUtil::markMatching(a, b, matching);
     resultImage.save("resources/out/" + name);
 }

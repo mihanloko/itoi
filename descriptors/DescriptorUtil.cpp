@@ -2,9 +2,7 @@
 // Created by mikhail on 17.05.2021.
 //
 
-#include <QPainter>
 #include "DescriptorUtil.h"
-#include "../points/DataSaver.h"
 
 DoubleImage DescriptorUtil::getGradient(DoubleImage &image, bool normalize) {
     auto first = FiltersImplementation::derivativeX(image);
@@ -74,4 +72,29 @@ QImage DescriptorUtil::markMatching(DoubleImage &a, DoubleImage &b, MatchData& d
         painter.drawLine(pointA.getX(), pointA.getY(), pointB.getX() + markedImageA.width(), pointB.getY());
     }
     return resultImage;
+}
+
+DoubleImage DescriptorUtil::getGradient(DoubleImage &first, DoubleImage &second,
+                            double (*counterFunc)(double, double)) {
+    auto gradient = DoubleImage(first.getWidth(), first.getHeight());
+
+    for (int i = 0; i < gradient.size(); i++) {
+        auto firstPixel = first.getData()[i];
+        auto secondPixel = second.getData()[i];
+        gradient.getData()[i] = counterFunc(firstPixel, secondPixel);
+    }
+
+    return gradient;
+}
+
+DoubleImage DescriptorUtil::getGradient(DoubleImage &first, DoubleImage &second) {
+    return getGradient(first, second, [](double firstPixel, double secondPixel) {
+        return sqrt((firstPixel * firstPixel) + (secondPixel * secondPixel));
+    });
+}
+
+DoubleImage DescriptorUtil::getGradientAngle(DoubleImage &first, DoubleImage &second) {
+    return getGradient(first, second, [](double firstPixel, double secondPixel) {
+        return atan2(secondPixel, firstPixel);
+    });
 }

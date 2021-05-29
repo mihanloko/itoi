@@ -3,7 +3,6 @@
 //
 
 #include "FiltersImplementation.h"
-#include "KernelFactory.h"
 
 
 DoubleImage FiltersImplementation::applyCrossCorel(DoubleImage &image, DoubleImage &kernel, BorderEffectAction &borderPolicy) {
@@ -94,4 +93,8 @@ DoubleImage FiltersImplementation::applySeparable(DoubleImage &image, pair<Doubl
     auto resX = applyConvolution(image, pair.first, policy);
     auto resY = applyConvolution(resX, pair.second, policy);
     return resY;
+}
+
+double FiltersImplementation::getSeparableValue(pair<DoubleImage, DoubleImage> &pair, int x, int y) {
+    return pair.first(x, 0) * pair.second(0, y);
 }

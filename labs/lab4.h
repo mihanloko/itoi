@@ -10,7 +10,9 @@
 class lab4 {
 public:
     static void run();
-    static void processPair(DoubleImage& a, DoubleImage& b, int gridHalfSize, int cellHalfSize, QString name);
+
+    static void processPair(DoubleImage &a, DoubleImage &b, int gridHalfSize, int cellHalfSize, QString name, int basketSize,
+                     int pointsCount);
 };
 
 
