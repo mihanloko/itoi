@@ -95,6 +95,6 @@ DoubleImage DescriptorUtil::getGradient(DoubleImage &first, DoubleImage &second)
 
 DoubleImage DescriptorUtil::getGradientAngle(DoubleImage &first, DoubleImage &second) {
     return getGradient(first, second, [](double firstPixel, double secondPixel) {
-        return atan2(secondPixel, firstPixel);
+        return atan2(firstPixel, secondPixel);
     });
 }

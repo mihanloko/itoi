@@ -4,7 +4,6 @@
 
 #include "Harris.h"
 #include "DataSaver.h"
-#include "../borders/MirrorBorderEffect.h"
 
 vector<InterestingPoint> Harris::makeHarris(DoubleImage &image, BorderEffectAction &action) {
     int width = image.getWidth();
@@ -48,83 +47,6 @@ vector<InterestingPoint> Harris::makeHarris(DoubleImage &image, BorderEffectActi
     return DataSaver::saveData(image, mins, filteredCandidates, "Harris");
 //    return vector<InterestingPoint>(&filteredCandidates[0], &filteredCandidates[right]);
 }
-
-
-vector<InterestingPoint> Harris::localMaximum(DoubleImage& image, double thresholdCoeff) {
-    vector<int> dx{-1, 0, 1, -1, 1, -1, 0, -1};
-    vector<int> dy{-1, -1, -1, 0, 0, 1, 1, 1};
-    int w = image.getWidth();
-    int h = image.getHeight();
-
-//    image.normalize();
-
-    double min = std::numeric_limits<double>::max(),
-            max = std::numeric_limits<double>::min();
-    // min and max search
-    for (int i = 0; i < image.size(); i++) {
-        double temp = image.getData()[i];
-        if (max < temp) max = temp;
-        if (min > temp) min = temp;
-    }
-
-    MirrorBorderEffect effect;
-    double threshold = min + (max - min) * thresholdCoeff;
-    vector<InterestingPoint> result;
-    for (int i = 0; i < w; i++) {
-        for (int j = 0; j < h; j++) {
-            bool isCorrect = true;
-            double currentValue = image(i, j);
-            for (int k = 0; k < dx.size() && isCorrect; k++) {
-                if (i + dx[k] < 0 || i + dx[k] >= w || j + dy[k] < 0 || j + dy[k] >= h)
-                    continue;
-                if (currentValue < effect.getPixel(image, i + dx[k], j + dy[k]))
-                    isCorrect = false;
-            }
-            if (isCorrect && currentValue > threshold) {
-                result.emplace_back(i, j, currentValue);
-            }
-        }
-    }
-    return result;
-}
-
-vector<InterestingPoint> Harris::filter(vector<InterestingPoint> &points, int pointsCount) {
-    if (pointsCount >= points.size())
-        return points;
-    sort(points.begin(), points.end(), [](InterestingPoint a, InterestingPoint b) {
-        return b.getProbability() < a.getProbability();
-    });
-    double l = 0, r = numeric_limits<double>::max();
-    for (int i = pointsCount; i > 0; i--) {
-        double middle = (l + r) / 2;
-        if (filter(points, middle).size() > pointsCount) {
-            l = middle;
-        } else {
-            r = middle;
-        }
-    }
-    auto filtered = filter(points, l);
-    return vector<InterestingPoint>(points.begin(), points.begin() + min((int) filtered.size(), pointsCount));
-}
-
-vector<InterestingPoint> Harris::filter(vector<InterestingPoint> &points, double radius) {
-    vector<InterestingPoint> filtered;
-    for (int i = 0; i < points.size(); ++i) {
-        bool ok = true;
-        for (int j = 0; j < points.size(); ++j) {
-            if (i == j) continue;
-            if (InterestingPoint::distance(points[i], points[j]) < radius) {
-                ok = false;
-                break;
-            }
-        }
-        if (ok) {
-            filtered.push_back(points[i]);
-        }
-    }
-    return filtered;
-}
-
 
 vector<double> Harris::getEigenValues(vector<vector<double>> &matrix) {
     auto eigenvalues = vector<double>(2);

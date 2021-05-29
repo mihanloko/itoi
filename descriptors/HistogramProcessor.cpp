@@ -2,9 +2,9 @@
 // Created by mikhail on 25.05.2021.
 //
 
-#include "HistogramCreator.h"
+#include "HistogramProcessor.h"
 
-vector<Descriptor> HistogramCreator::createDescriptors(DoubleImage &img) {
+vector<Descriptor> HistogramProcessor::createDescriptors(DoubleImage &img) {
     auto x = FiltersImplementation::derivativeX(img);
     auto y = FiltersImplementation::derivativeY(img);
 
@@ -17,7 +17,7 @@ vector<Descriptor> HistogramCreator::createDescriptors(DoubleImage &img) {
     return createDescriptors(gradient, gradientAngle, points);
 }
 
-vector<Descriptor> HistogramCreator::createDescriptors(DoubleImage &gradient, DoubleImage &gradientAngle,
+vector<Descriptor> HistogramProcessor::createDescriptors(DoubleImage &gradient, DoubleImage &gradientAngle,
                                                        vector<InterestingPoint> &points) {
     vector<Descriptor> descriptors;
     descriptors.reserve(points.size());
@@ -26,24 +26,23 @@ vector<Descriptor> HistogramCreator::createDescriptors(DoubleImage &gradient, Do
     return descriptors;
 }
 
-DoubleImage &HistogramCreator::getFirstImage() {
+DoubleImage &HistogramProcessor::getFirstImage() {
     return firstImage;
 }
 
-DoubleImage &HistogramCreator::getSecondImage() {
+DoubleImage &HistogramProcessor::getSecondImage() {
     return secondImage;
 }
 
-HistogramCreator::HistogramCreator(DoubleImage &firstImage, DoubleImage &second, int gridSize, int cellSize,
-                                   int basketSize, int pointsCount)
+HistogramProcessor::HistogramProcessor(DoubleImage &firstImage, DoubleImage &second, int gridSize, int cellSize,
+                                   int basketSize)
         : firstImage(firstImage), secondImage(second), gridSize(gridSize), cellSize(cellSize),
-          basketSize(basketSize), pointsCount(pointsCount) {
+          basketSize(basketSize) {
 
 }
 
-MatchData HistogramCreator::create(DoubleImage &first, DoubleImage &second, int _gridSize, int _cellSize, int _basketSize,
-                         int _pointsCount, bool showAll) {
-    auto creator = HistogramCreator(first, second, _gridSize, _cellSize, _basketSize, _pointsCount);
+MatchData HistogramProcessor::create(DoubleImage &first, DoubleImage &second, int gridSize, int cellSize, int basketSize) {
+    auto creator = HistogramProcessor(first, second, gridSize, cellSize, basketSize);
     auto firstDescriptor = creator.createDescriptors(creator.getFirstImage());
 
     auto secondDescriptor = creator.createDescriptors(creator.getSecondImage());

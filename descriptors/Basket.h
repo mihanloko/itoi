@@ -25,11 +25,6 @@ public:
 
     vector<double> &getBasket();
 
-    vector<double> getHighestAngles();
-
-    pair<int, double> getMaxAngle(int excludeIndex = -1, double min = numeric_limits<double>::min());
-
-    static double interpolate(double x1, double y1, double x2, double y2, double x3, double y3);
 };
 
 

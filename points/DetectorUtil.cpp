@@ -8,6 +8,16 @@ vector<InterestingPoint> DetectorUtil::getCandidates(vector<vector<double>> valu
     static const vector<int> dx{-1, 0, 1, -1, 1, -1, 0, -1};
     static const vector<int> dy{-1, -1, -1, 0, 0, 1, 1, 1};
     vector<InterestingPoint> candidates = vector<InterestingPoint>();
+    double min = std::numeric_limits<double>::max(),
+            max = std::numeric_limits<double>::min();
+
+    for (auto &i : values) {
+        for (auto temp: i) {
+            if (max < temp) max = temp;
+            if (min > temp) min = temp;
+        }
+    }
+    double threshold = min + (max - min) * 0.05;
     for (int i = 0; i < width; i++) {
         for (int j = 0; j < height; j++) {
             bool ok = true;
@@ -20,7 +30,7 @@ vector<InterestingPoint> DetectorUtil::getCandidates(vector<vector<double>> valu
                 if (currentValue < values[i + dx[k]][j + dy[k]])
                     ok = false;
             }
-            if (ok) {
+            if (ok && currentValue > threshold) {
                 candidates.emplace_back(i, j, values[i][j]);
             }
         }

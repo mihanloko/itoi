@@ -22,16 +22,9 @@ private:
     vector<double> getEigenValues(vector<vector<double>> &mat);
     double sqr(double value);
     double MIN_PROBABILITY = 0.005;
-    int MAX_SIZE = 2000;
     const int WINDOW_RADIUS = 6;
 public:
     vector<InterestingPoint> makeHarris(DoubleImage &image, BorderEffectAction &action =  (BorderEffectAction &) DEFAULT_BORDER);
-
-    vector<InterestingPoint> filter(vector<InterestingPoint> &points, double radius);
-
-    vector<InterestingPoint> filter(vector<InterestingPoint> &points, int pointsCount);
-
-    vector<InterestingPoint> localMaximum(DoubleImage &image, double thresholdCoeff);
 };
 
 
