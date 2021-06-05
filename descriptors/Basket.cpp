@@ -11,17 +11,19 @@ Basket::Basket(int size) : size(size) {
 }
 
 void Basket::add(double angle, double value) {
-    angle = normalize(angle) / step;
-    int i = (int) angle;
-    double center = i + 0.5;
-    double weight = abs(center - angle);
-    int neighbourI = (i + 1) % size;
-    if (angle <= center) {
-        neighbourI = (i - 1 + size) % size;
+    angle = normalize(angle);
+
+    angle /= step;
+    int binIdx = (int) angle;
+    double binCenter = binIdx + 0.5;
+    double weight = abs(binCenter - angle);
+    int neighbourIdx = (binIdx + 1) % size;
+    if (angle <= binCenter) {
+        neighbourIdx = (binIdx - 1 + size) % size;
     }
 
-    basket[i] += weight * value;
-    basket[neighbourI] += (1 - weight) * value;
+    basket[binIdx] += weight * value;
+    basket[neighbourIdx] += (1 - weight) * value;
 }
 
 double Basket::normalize(double angle) {

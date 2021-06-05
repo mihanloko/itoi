@@ -53,9 +53,20 @@ DoubleImage KernelFactory::GetGauss(double sigma, bool isNeedNormalize) {
 
     return DoubleImage(matrix_gauss, size, size);
 }
+
+pair<DoubleImage, DoubleImage> KernelFactory::GetGaussSeparableXY(int halfSize, bool normalize) {
+    auto kernel = GetGaussSeparableX(halfSize, halfSize / 3.0, normalize);
+    return GetSeparableFromKernel(kernel);
+}
+
 pair<DoubleImage, DoubleImage> KernelFactory::GetGaussSeparableXY(double sigma, bool normalize) {
     auto kernel = GetGaussSeparableX(sigma, normalize);
     return make_pair(DoubleImage(kernel, kernel.size(), 1), DoubleImage(kernel, 1, kernel.size()));
+}
+
+pair<DoubleImage, DoubleImage> KernelFactory::GetSeparableFromKernel(const vector<double>& kernel){
+    int size = kernel.size();
+    return make_pair(DoubleImage(kernel, size, 1), DoubleImage(kernel, 1, size));
 }
 
 double KernelFactory::GetGaussKernelValue(int x, int y, double sigma) {
@@ -79,5 +90,23 @@ vector<double> KernelFactory::GetGaussSeparableX(double sigma, bool normalize) {
     if (normalize)
         for (int i = 0; i < size; ++i)
             row[i] /= sum;
+    return row;
+}
+
+vector<double> KernelFactory::GetGaussSeparableX(int halfSize, double sigma, bool normalize) {
+    auto size = halfSize * 2 + 1;
+    auto row = vector<double>(size);
+    double coef = 1 / (sqrt(2 * M_PI) * sigma);
+    for (int x = -halfSize; x <= halfSize; x++) {
+        row[x + halfSize] = coef * exp(-(x * x) / (2 * (sigma * sigma)));
+    }
+    double sum = 0;
+    for (int i = 0; i < size; i++) {
+        sum += row[i];
+    }
+    if (normalize)
+        for (int i = 0; i < size; i++) {
+            row[i] /= sum;
+        }
     return row;
 }

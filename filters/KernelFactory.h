@@ -25,6 +25,12 @@ public:
     static pair<DoubleImage, DoubleImage> GetSobelSeparableY();
 
     static double GetGaussKernelValue(int x, int y, double sigma);
+
+    static pair<DoubleImage, DoubleImage> GetGaussSeparableXY(int halfSize, bool normalize = true);
+
+    static vector<double> GetGaussSeparableX(int halfSize, double sigma, bool normalize);
+
+    static pair<DoubleImage, DoubleImage> GetSeparableFromKernel(const vector<double> &kernel);
 };
 
 

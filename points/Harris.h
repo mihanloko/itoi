@@ -22,7 +22,7 @@ private:
     vector<double> getEigenValues(vector<vector<double>> &mat);
     double sqr(double value);
     double MIN_PROBABILITY = 0.005;
-    const int WINDOW_RADIUS = 6;
+    const int WINDOW_RADIUS = 3;
 public:
     vector<InterestingPoint> makeHarris(DoubleImage &image, BorderEffectAction &action =  (BorderEffectAction &) DEFAULT_BORDER);
 };

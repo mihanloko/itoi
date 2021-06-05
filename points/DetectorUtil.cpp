@@ -41,7 +41,7 @@ vector<InterestingPoint> DetectorUtil::getCandidates(vector<vector<double>> valu
 vector<InterestingPoint> DetectorUtil::filter(vector<InterestingPoint> &points, int maxSize, int maxRadius) {
     vector<InterestingPoint> result(points);
     int r = 0;
-    while (result.size() > maxRadius && r < maxSize) {
+    /*while (result.size() > maxRadius && r < maxSize) {
         for (int i = 0; i < result.size(); i++) {
             for (int j = 0; j < result.size(); j++) {
                 double dist = InterestingPoint::distance(result[i], result[j]);
@@ -55,10 +55,10 @@ vector<InterestingPoint> DetectorUtil::filter(vector<InterestingPoint> &points, 
             }
         }
         r++;
-    }
-    /*sort(result.begin(), result.end(), [](const InterestingPoint & a, const InterestingPoint & b) -> bool {
+    }*/
+    sort(result.begin(), result.end(), [](const InterestingPoint & a, const InterestingPoint & b) -> bool {
         return b.getProbability() > a.getProbability();
-    });*/
+    });
     if (result.size() > 200) {
         result = vector<InterestingPoint>(&result[0], &result[200]);
     }
