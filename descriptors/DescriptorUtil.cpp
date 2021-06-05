@@ -39,7 +39,7 @@ Descriptor* DescriptorUtil::getClosest(Descriptor &descriptor,vector<Descriptor>
     int b = getMinIndex(distances, a);
 
     double r = distances[a] / distances[b];
-    return (r <= 0.5) ? &descriptors[a] : nullptr;
+    return (r <= 0.8) ? &descriptors[a] : nullptr;
 }
 
 int DescriptorUtil::getMinIndex(vector<double> distances, int excludeIndex) {

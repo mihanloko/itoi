@@ -7,6 +7,7 @@
 
 
 #include "../image/DoubleImage.h"
+#include <cmath>
 #include "MatchData.h"
 #include "DescriptorUtil.h"
 #include "HistogramDescriptor.h"
@@ -23,6 +24,10 @@ private:
     vector<Descriptor> createDescriptors(DoubleImage &img);
 
     vector<Descriptor> createDescriptors(DoubleImage &gradient, DoubleImage &gradientAngle, vector<InterestingPoint> &points);
+
+    vector<vector<vector<double>>> calculateHistograms(DoubleImage& gradient, DoubleImage& dx, DoubleImage& dy, DoubleImage& gauss,
+                                                      int gridSize, int blockSize, int binsCount,
+                                                       InterestingPoint& center, double angle);
 
 public:
     DoubleImage &getFirstImage();

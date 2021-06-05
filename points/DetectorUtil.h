@@ -9,6 +9,7 @@
 #include <map>
 #include <algorithm>
 #include "InterestingPoint.h"
+#include "../image/DoubleImage.h"
 
 using namespace std;
 
@@ -18,6 +19,8 @@ public:
     static vector<InterestingPoint> getCandidates(vector<vector<double>> values, int width, int height);
 
     static vector<InterestingPoint> filter(vector<InterestingPoint> &points, int maxSize, int maxRadius);
+
+    static vector<InterestingPoint> matToPoints(DoubleImage& mat);
 };
 
 

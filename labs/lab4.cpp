@@ -3,7 +3,6 @@
 //
 
 #include "lab4.h"
-#include "../descriptors/HistogramProcessor.h"
 
 void lab4::run() {
     DoubleImage cat("cat.jpg");

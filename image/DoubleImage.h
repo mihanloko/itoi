@@ -43,6 +43,8 @@ public:
     long size();
 
     vector<double>& getData();
+
+    DoubleImage withSameSize();
 };
 
 

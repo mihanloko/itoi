@@ -16,7 +16,7 @@ DoubleImage::DoubleImage(const QString& name) {
     data = vector<double>(width * height);
     for (int x = 0; x < width; x++) {
         for (int y = 0; y < height; y++) {
-            (*this)(x, y) = (0.229 * image.pixelColor(x, y).red() + 0.587 * image.pixelColor(x, y).green() + 0.114 * image.pixelColor(x, y).blue()) / 255.;
+            (*this)(x, y) = (0.213 * image.pixelColor(x, y).red() + 0.715 * image.pixelColor(x, y).green() + 0.072 * image.pixelColor(x, y).blue()) / 255.;
         }
     }
 }
@@ -99,5 +99,9 @@ DoubleImage::DoubleImage(const DoubleImage &image) {
     for (int i = 0; i < size(); i++) {
         data[i] = image.data[i];
     }
+}
+
+DoubleImage DoubleImage::withSameSize() {
+    return DoubleImage(vector<double>(width * height), height, width);
 }
 

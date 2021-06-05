@@ -11,11 +11,11 @@
 
 class Descriptor {
 protected:
-    Descriptor(InterestingPoint point);
-
     vector<double> descriptor;
     InterestingPoint point;
 public:
+
+    Descriptor(InterestingPoint point);
     const InterestingPoint &getPoint() const;
 
     const vector<double> &getDescriptor() const;

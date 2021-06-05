@@ -6,6 +6,7 @@
 #define ITOI_LAB4_H
 
 #include "../image/DoubleImage.h"
+#include "../descriptors/HistogramProcessor.h"
 
 class lab4 {
 public:
