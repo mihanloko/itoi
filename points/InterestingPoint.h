@@ -11,8 +11,11 @@ class InterestingPoint {
 private:
     int x, y;
     double probability;
+    double angle;
 public:
     InterestingPoint(int x, int y, double probability);
+
+    InterestingPoint(int x, int y, double probability, double angle);
 
     int getX() const;
 
@@ -27,6 +30,8 @@ public:
     void setProbability(double probability);
 
     static double distance(InterestingPoint &a, InterestingPoint &b);
+
+    double getAngle() const;
 };
 
 

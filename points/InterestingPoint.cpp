@@ -33,3 +33,10 @@ InterestingPoint::InterestingPoint(int x, int y, double probability) : x(x), y(y
 double InterestingPoint::distance(InterestingPoint &a, InterestingPoint &b) {
     return sqrt((a.x - b.x)*(a.x - b.x) + (a.y - b.y)*(a.y - b.y));
 }
+
+InterestingPoint::InterestingPoint(int x, int y, double probability, double angle)
+        : x(x), y(y), probability(probability), angle(angle) {}
+
+double InterestingPoint::getAngle() const {
+    return angle;
+}

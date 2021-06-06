@@ -29,7 +29,7 @@ double Descriptor::distance(Descriptor &firstDescriptor, Descriptor &secondDescr
     return sqrt(sum);
 }
 
-const vector<double> &Descriptor::getDescriptor() const {
+vector<double> &Descriptor::getDescriptor() {
     return descriptor;
 }
 
@@ -43,4 +43,8 @@ Descriptor::Descriptor(InterestingPoint point) : point(point) {
 
 const InterestingPoint &Descriptor::getPoint() const {
     return point;
+}
+
+void Descriptor::setPoint(const InterestingPoint &point) {
+    Descriptor::point = point;
 }

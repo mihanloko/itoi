@@ -18,13 +18,15 @@ public:
     Descriptor(InterestingPoint point);
     const InterestingPoint &getPoint() const;
 
-    const vector<double> &getDescriptor() const;
+    vector<double> &getDescriptor();
 
     void setDescriptor(vector<double> newDescriptor);
 
     void normalize();
 
     static double distance(Descriptor& firstDescriptor, Descriptor& secondDescriptor);
+
+    void setPoint(const InterestingPoint &point);
 };
 
 

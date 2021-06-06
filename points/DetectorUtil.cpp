@@ -59,8 +59,8 @@ vector<InterestingPoint> DetectorUtil::filter(vector<InterestingPoint> &points, 
     sort(result.begin(), result.end(), [](const InterestingPoint & a, const InterestingPoint & b) -> bool {
         return b.getProbability() > a.getProbability();
     });
-    if (result.size() > 200) {
-        result = vector<InterestingPoint>(&result[0], &result[200]);
+    if (result.size() > 50) {
+        result = vector<InterestingPoint>(&result[0], &result[50]);
     }
     return result;
 }
